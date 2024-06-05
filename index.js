@@ -34,13 +34,15 @@ function write (sprites, opts) {
   var totalWidth = Math.max(settings.imageWidth, packedSprites.width)
   var dataLength = 4*totalWidth*totalHeight
   var data = new Uint8Array(dataLength)
-  writeFeatures(data, opts, totalWidth, sprites)
+  var labelFontFamily = []
+  writeFeatures(data, opts, totalWidth, sprites, labelFontFamily)
   writeSpriteMeta(data, opts, aSprites)
   writeSprites(data, totalWidth, aSprites)
   return { 
     data,
     width: totalWidth,
-    height: totalHeight
+    height: totalHeight,
+    labelFontFamily,
   }
 }
 
@@ -93,7 +95,7 @@ function reverseFindOffset (out, index, spriteWidth, spriteHeight) {
   return out
 }
 
-function writeFeatures(data, opts, totalWidth, sprites) {
+function writeFeatures(data, opts, totalWidth, sprites, labelFontFamily) {
   var defaults = opts.defaults
   var stylesheet = opts.stylesheet
   var fkeys = opts.features
@@ -141,7 +143,8 @@ function writeFeatures(data, opts, totalWidth, sprites) {
     }
     for (var x = 0; x < fkeys.length; x++) {
       var offset = findOffset(x, 7*(z-zoomStart)+5, totalWidth)
-      data[offset+0] = getStyle(defaults, stylesheet, fkeys[x], "point-label-font", z)
+      var plf = getStyle(defaults, stylesheet, fkeys[x], "point-label-font", z)
+      data[offset+0] = addLabelFontFamily(labelFontFamily, plf)
       data[offset+1] = getStyle(defaults, stylesheet, fkeys[x], "point-label-font-size", z)
       data[offset+2] = getStyle(defaults, stylesheet, fkeys[x], "point-label-priority", z)
       data[offset+3] = getStyle(defaults, stylesheet, fkeys[x], "point-label-constraints", z)
@@ -211,7 +214,8 @@ function writeFeatures(data, opts, totalWidth, sprites) {
     }
     for (var x = 0; x < fkeys.length; x++) {
       var offset = findOffset(x, y+8*(z-zoomStart)+6, totalWidth)
-      data[offset+0] = getStyle(defaults, stylesheet, fkeys[x], "line-label-font", z)
+      var llf = getStyle(defaults, stylesheet, fkeys[x], "line-label-font", z)
+      data[offset+0] = addLabelFontFamily(labelFontFamily, llf)
       data[offset+1] = getStyle(defaults, stylesheet, fkeys[x], "line-label-font-size", z)
       data[offset+2] = getStyle(defaults, stylesheet, fkeys[x], "line-label-priority", z)
       data[offset+3] = getStyle(defaults, stylesheet, fkeys[x], "line-label-constraints", z)
@@ -263,7 +267,8 @@ function writeFeatures(data, opts, totalWidth, sprites) {
     }
     for (var x = 0; x < fkeys.length; x++) {
       var offset = findOffset(x, y+6*(z-zoomStart)+4, totalWidth)
-      data[offset+0] = getStyle(defaults, stylesheet, fkeys[x], "area-label-font", z)
+      var alf = getStyle(defaults, stylesheet, fkeys[x], "area-label-font", z)
+      data[offset+0] = addLabelFontFamily(labelFontFamily, alf)
       data[offset+1] = getStyle(defaults, stylesheet, fkeys[x], "area-label-font-size", z)
       data[offset+2] = getStyle(defaults, stylesheet, fkeys[x], "area-label-priority", z)
       data[offset+3] = getStyle(defaults, stylesheet, fkeys[x], "area-label-constraints", z)
@@ -462,6 +467,12 @@ function readSpriteFiles (spriteFileNames, cb) {
 
 function findOffset(x, y, imageWidth) {
   return (x + imageWidth * y) * 4
+}
+
+function addLabelFontFamily (labelFontFamily, featureFontFamily) {
+  if (Number.isInteger(parseInt(featureFontFamily))) return parseInt(featureFontFamily)
+  if (labelFontFamily.indexOf(featureFontFamily) === -1) labelFontFamily.push(featureFontFamily)
+  return labelFontFamily.indexOf(featureFontFamily)
 }
 
 function noop () {}
