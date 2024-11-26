@@ -3,6 +3,7 @@ var makePNG = require('fast-png')
 var binpack = require('bin-pack')
 var expand = require('brace-expansion')
 var evalExpr = require('./lib/expr.js')
+const parseHex = require('./lib/parse-hex')
 var settings = require('./settings.js')()
 var zoomStart = settings.zoomStart
 var zoomEnd = settings.zoomEnd //inclusive
@@ -43,6 +44,7 @@ function write (sprites, opts) {
     width: totalWidth,
     height: totalHeight,
     labelFontFamily,
+    settings,
   }
 }
 
@@ -295,7 +297,7 @@ function writeFeatures(data, opts, totalWidth, sprites, labelFontFamily) {
     }
     for (var x = 0; x < fkeys.length; x++) {
       var offset = findOffset(x, y+3*(z-zoomStart)+1, totalWidth)
-      var areaBorderStyle = parseAreaBorderStyle (defaults, stylesheet, fkeys[x], z)
+      var areaBorderStyle = parseAreaBorderStyle(defaults, stylesheet, fkeys[x], z)
       data[offset+0] = areaBorderStyle.dashLength
       data[offset+1] = areaBorderStyle.dashGap
       data[offset+2] = getStyle(defaults, stylesheet, fkeys[x], "area-border-width", z) //areaborder-width-inner
@@ -311,10 +313,6 @@ function writeFeatures(data, opts, totalWidth, sprites, labelFontFamily) {
       data[offset+3] = 255 //reserved
     }
   }
-}
-
-function parseHex (hex) {
-  return hex.match(/([0-9a-f]{2})/ig).map(s => parseInt(s,16))
 }
 
 function parseLineStyle (defaults, stylesheet, type, property) {
