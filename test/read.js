@@ -20,6 +20,7 @@ test('read', async (t) => {
     labelPriority: 55,
     labelConstraints: 0,
     labelStrokeWidth: 4,
+    pointSize: 32,
   }
   const tex = await makeTex({
     defaults,
@@ -51,6 +52,8 @@ test('read', async (t) => {
   const pl = read.label('point', lighthouseIndex, 8)
   const ll = read.label('line', lighthouseIndex, 8)
   const al = read.label('area', lighthouseIndex, 8)
+
+  t.is(pl.pointSize, stylesheetOpts.pointSize, `point : point size ${stylesheetOpts.pointSize} : zoom 8`)
 
   t.is(pl.fillColor[0], labelFillColorRgb[0], `point : label fill color red ${labelFillColorRgb[0]} : zoom 8`)
   t.is(pl.fillColor[1], labelFillColorRgb[1], `point : label fill color green ${labelFillColorRgb[1]} : zoom 8`)

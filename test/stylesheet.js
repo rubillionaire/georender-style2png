@@ -9,6 +9,7 @@ module.exports = function ({
     labelPriority,
     labelConstraints,
     labelStrokeWidth,
+    pointSize,
   }) {
   return {
     "man_made.lighthouse": {
@@ -44,6 +45,7 @@ module.exports = function ({
       "area-label-priority": labelPriority,
       "area-label-constraints": labelConstraints,
       "area-label-stroke-width": labelStrokeWidth,
+      "point-size": pointSize,
     }
   }
 }

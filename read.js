@@ -24,8 +24,13 @@ function label (key, type, zoom, { pixels, imageWidth, zoomCount }) {
   let priority
   let constraints
   let strokeWidth
+  const typeSpecific = {}
   if (key === 'point') {
-    let prevFkeyLoops = 3
+    let prevFkeyLoops = 2
+    const x3 = xOffset(type, prevFkeyLoops, imageWidth)
+    const i3 = vec4Index(x3, y, imageWidth)
+    typeSpecific.pointSize = pixels[i3 + 0]
+    prevFkeyLoops += 1
     const x4 = xOffset(type, prevFkeyLoops, imageWidth)
     const i4 = vec4Index(x4, y, imageWidth)
     fillColor[0] = pixels[i4 + 0]
@@ -116,6 +121,7 @@ function label (key, type, zoom, { pixels, imageWidth, zoomCount }) {
     priority,
     constraints,
     strokeWidth,
+    ...typeSpecific,
   }
 }
 
