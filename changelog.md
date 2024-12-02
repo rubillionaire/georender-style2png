@@ -1,3 +1,7 @@
+# 6.1.1
+
+- [package] add `@rubenrodriguez/georender-pack` as a dependency instead of dev dependency which is used in `settings`
+
 # 6.1.0
 
 - [package] start `@rubenrodriguez` scope of this package.
