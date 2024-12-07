@@ -1,3 +1,7 @@
+# 6.2.0
+
+- [read] minor: adds interface for reading zindex values out of the style pixels.
+
 # 6.1.1
 
 - [package] add `@rubenrodriguez/georender-pack` as a dependency instead of dev dependency which is used in `settings`

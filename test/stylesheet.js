@@ -10,6 +10,7 @@ module.exports = function ({
     labelConstraints,
     labelStrokeWidth,
     pointSize,
+    zindex,
   }) {
   return {
     "man_made.lighthouse": {
@@ -46,6 +47,9 @@ module.exports = function ({
       "area-label-constraints": labelConstraints,
       "area-label-stroke-width": labelStrokeWidth,
       "point-size": pointSize,
+      "point-zindex": zindex,
+      "line-zindex": zindex,
+      "area-zindex": zindex,
     }
   }
 }
