@@ -3,7 +3,8 @@ module.exports = read
 function read ({ pixels, zoomCount, imageWidth }) {
   return {
     opacity: (key, type, zoom) => opacity(key, type, zoom, { pixels, imageWidth, zoomCount }),
-    label: (key, type, zoom) => label(key, type, zoom, { pixels, imageWidth, zoomCount })
+    label: (key, type, zoom) => label(key, type, zoom, { pixels, imageWidth, zoomCount }),
+    zindex: (key, type, zoom) => zindex(key, type, zoom, { pixels, imageWidth, zoomCount }),
   }
 }
 
@@ -11,6 +12,31 @@ function opacity (key, type, zoom, { pixels, imageWidth, zoomCount }) {
   const y = yOffset(key, zoom, zoomCount)
   const index = (type + y * imageWidth) * 4 + 3
   return pixels[index]
+}
+
+function zindex (key, type, zoom, { pixels, imageWidth, zoomCount }) {
+  const y = yOffset(key, zoom, zoomCount)
+  if (key === 'point') {
+    const prevFkeyLoops = 2
+    const x3 = xOffset(type, prevFkeyLoops, imageWidth)
+    const i3 = vec4Index(x3, y, imageWidth)
+    const zindex = pixels[i3 + 3]
+    return zindex
+  }
+  if (key === 'line') {
+    const prevFkeyLoops = 3
+    const x4 = xOffset(type, prevFkeyLoops, imageWidth)
+    const i4 = vec4Index(x4, y, imageWidth)
+    const zindex = pixels[i4 + 3]
+    return zindex
+  }
+  if (key === 'area') {
+    const prevFkeyLoops = 1
+    const x2 = xOffset(type, prevFkeyLoops, imageWidth)
+    const i3 = vec4Index(x2, y, imageWidth)
+    const zindex = pixels[i3 + 0]
+    return zindex
+  }
 }
 
 function label (key, type, zoom, { pixels, imageWidth, zoomCount }) {

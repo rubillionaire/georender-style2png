@@ -21,6 +21,7 @@ test('read', async (t) => {
     labelConstraints: 0,
     labelStrokeWidth: 4,
     pointSize: 32,
+    zindex: 17,
   }
   const tex = await makeTex({
     defaults,
@@ -98,6 +99,14 @@ test('read', async (t) => {
   t.is(pl.strokeWidth, stylesheetOpts.labelStrokeWidth, `point : label stroke width ${stylesheetOpts.labelStrokeWidth} : zoom 8`)
   t.is(ll.strokeWidth, stylesheetOpts.labelStrokeWidth, `line : label stroke width ${stylesheetOpts.labelStrokeWidth} : zoom 8`)
   t.is(al.strokeWidth, stylesheetOpts.labelStrokeWidth, `area : label stroke width ${stylesheetOpts.labelStrokeWidth} : zoom 8`)
+
+  const pz = read.zindex('point', lighthouseIndex, 8)
+  const lz = read.zindex('line', lighthouseIndex, 8)
+  const az = read.zindex('area', lighthouseIndex, 8)
+
+  t.is(pz, stylesheetOpts.zindex, `point : zindex ${stylesheetOpts.zindex} : zoom 8`)
+  t.is(lz, stylesheetOpts.zindex, `line : zindex ${stylesheetOpts.zindex} : zoom 8`)
+  t.is(az, stylesheetOpts.zindex, `area : zindex ${stylesheetOpts.zindex} : zoom 8`)
 
   t.end()
 })
