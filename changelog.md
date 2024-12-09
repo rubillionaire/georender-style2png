@@ -1,4 +1,4 @@
-# next
+# 6.2.1
 
 - [example] patch: migrate from `example/make-tex` to `example/make-assets` because we add a little label config for `mixmap-georender` to run off of, specifically for defining the order of names of fonts that are stored in the tex.
 
