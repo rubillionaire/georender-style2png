@@ -431,7 +431,8 @@
     "label-stroke-color": "#FFFFFF"
   },
   "natural.wetland": {
-    "area-fill-color": "#5b863f"
+    "area-fill-color": "#5b863f",
+    "area-label-font": "Helvetica"
   },
   "natural.wood": {
     "point-size": 5,
@@ -452,7 +453,8 @@
     "area-fill-color": "#d3d3d3"
   },
   "place.neighbourhood": {
-    "area-zindex": 1.0
+    "area-zindex": 1.0,
+    "area-label-font": "Georgia"
   },
   "place.square": {
     "area-fill-color": "#d6d6d6",
