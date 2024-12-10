@@ -15,9 +15,7 @@ makeTex({
   var png = makePNG.encode(pngData)
   fs.writeFileSync('style-texture.png', png)
   const labelOpts = {
-    label: {
-      fontFamily: data.labelFontFamily,
-    }
+    fontFamily: data.labelFontFamily,
   }
   fs.writeFileSync('style-label-opts.json', JSON.stringify(labelOpts))
 })

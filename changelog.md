@@ -1,3 +1,9 @@
+# 6.2.2
+
+- [test] patch: update test to both read tex data in flight, and read from a png, to verify that we can restore and read data the same way we encoded it.
+- [package] patch: update fast-png and make explicit that this package is being tested on node 16 and is the baseline support.
+- [cmd] patch: update to write out the json that is used for label configuration.
+
 # 6.2.1
 
 - [example] patch: migrate from `example/make-tex` to `example/make-assets` because we add a little label config for `mixmap-georender` to run off of, specifically for defining the order of names of fonts that are stored in the tex.
