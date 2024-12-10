@@ -1,4 +1,5 @@
 module.exports = function ({
+    featureType,
     baseOpacity,
     doubleOpacity,
     labelFillColor,
@@ -13,7 +14,7 @@ module.exports = function ({
     zindex,
   }) {
   return {
-    "man_made.lighthouse": {
+    [featureType]: {
       "point-opacity": baseOpacity,
       "line-opacity": baseOpacity,
       "area-opacity": baseOpacity,
