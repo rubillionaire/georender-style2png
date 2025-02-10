@@ -74,6 +74,7 @@ test('read', async (t) => {
       pixels: decode(await fs.readFile(texPngFile)).data,
       imageWidth: settings.imageWidth,
       zoomCount: settings.zoomCount,
+      labelFontFamily: tex.labelFontFamily,
     },
   }
 
@@ -136,9 +137,13 @@ function readTests (t, { labelOpts, readOpts }) {
   t.is(ll.strokeOpacity, stylesheetOpts.baseOpacity, `line : label stroke opacity ${stylesheetOpts.baseOpacity} : zoom ${zoom}`)
   t.is(al.strokeOpacity, stylesheetOpts.baseOpacity, `area : label stroke opacity ${stylesheetOpts.baseOpacity} : zoom ${zoom}`)
 
-  t.is(labelOpts.fontFamily[pl.fontFamily], stylesheetOpts.labelFontFamily1, `point : label font family ${stylesheetOpts.labelFontFamily1} : zoom ${zoom}`)
-  t.is(labelOpts.fontFamily[ll.fontFamily], stylesheetOpts.labelFontFamily2, `line : label font family ${stylesheetOpts.labelFontFamily2} : zoom ${zoom}`)
-  t.is(labelOpts.fontFamily[al.fontFamily], stylesheetOpts.labelFontFamily2, `area : label font family ${stylesheetOpts.labelFontFamily2} : zoom ${zoom}`)
+  t.is(labelOpts.fontFamily[pl.fontFamilyIndex], stylesheetOpts.labelFontFamily1, `point : label font family ${stylesheetOpts.labelFontFamily1} : zoom ${zoom}`)
+  t.is(labelOpts.fontFamily[ll.fontFamilyIndex], stylesheetOpts.labelFontFamily2, `line : label font family ${stylesheetOpts.labelFontFamily2} : zoom ${zoom}`)
+  t.is(labelOpts.fontFamily[al.fontFamilyIndex], stylesheetOpts.labelFontFamily2, `area : label font family ${stylesheetOpts.labelFontFamily2} : zoom ${zoom}`)
+
+  t.is(labelOpts.fontFamilyName, stylesheetOpts.labelFontFamily1, `point : label font family ${stylesheetOpts.labelFontFamily1} : zoom ${zoom}`)
+  t.is(labelOpts.fontFamilyName, stylesheetOpts.labelFontFamily2, `line : label font family ${stylesheetOpts.labelFontFamily2} : zoom ${zoom}`)
+  t.is(labelOpts.fontFamilyName, stylesheetOpts.labelFontFamily2, `area : label font family ${stylesheetOpts.labelFontFamily2} : zoom ${zoom}`)
 
   t.is(pl.fontSize, stylesheetOpts.labelFontSize, `point : label font size ${stylesheetOpts.labelFontSize} : zoom ${zoom}`)
   t.is(ll.fontSize, stylesheetOpts.labelFontSize, `line : label font size ${stylesheetOpts.labelFontSize} : zoom ${zoom}`)
