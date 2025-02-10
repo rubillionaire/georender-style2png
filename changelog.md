@@ -1,3 +1,8 @@
+# 6.3.0
+
+- [read] add labelFontFamily (an array of font family strings) option to be passed into the style reader, allowing the style reader to return the font family name in addition to the font family index.
+- [test] adds to the read tests to ensure fontFamilyName is being processed properly.
+
 # 6.2.2
 
 - [test] patch: update test to both read tex data in flight, and read from a png, to verify that we can restore and read data the same way we encoded it.
